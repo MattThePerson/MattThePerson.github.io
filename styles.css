@@ -17,7 +17,7 @@
 }
 
 body {
-    background-color: var(--white-yellow);
+    background-color: #fff;
 }
 
 /* HEADER */
@@ -136,7 +136,7 @@ main {
 /* PROJECTS */
 
 .container {
-    min-height: 40em;
+    min-height: 60em;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5em;
@@ -161,13 +161,18 @@ main {
 .project-item {
     position: relative;
     display: flex;
-    justify-content: space-around;
-    max-width: 47%;
+    justify-content: space-between;
+    width: 47%;
     text-decoration: none;
     color: var(--off-black);
     margin: 0.5em;
     background-color: antiquewhite;
     border-radius: 8px;
+    outline: 2px solid #faebd700;
+    transition: outline 100ms;
+}
+.project-item:hover {
+    outline: 2px solid antiquewhite;
 }
 
 .project-text {
