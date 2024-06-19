@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED Matrix Display</title>
+    <script defer src="../projectFiles/LEDMatrixDisplay/LEDMatrixDisplay.js"></script>
+    <!-- <Link rel="stylesheet" href="LED_styles_hold.css"> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: rgb(29, 29, 29);
+        }
+        .small-holder {
+            display: flex;
+
+        }
+        .led-matrix-display {
+            margin: 2rem;
+        }
+        .verts {
+            display: flex;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="led-matrix-display pointer orange text left"
+        data-width="120" data-height="8" data-text="Click on displays to turn them on! " data-randthresh="0.5" data-updatems="60" data-size="8px"></div>
+    <div class="small-holder">
+        <div class="led-matrix-display pointer red" data-width="8" data-height="8" data-size="9px" data-updatems="400"></div>
+        <div class="led-matrix-display pointer blue still" data-width="8" data-height="8" data-size="30px" data-randthresh="0.8"></div>
+        <div class="led-matrix-display pointer off pink function left" data-width="8" data-height="8" data-size="18px" data-updatems="100"></div>
+    </div>
+    <div class="verts">
+        <div class="led-matrix-display pointer off white random down" data-width="8" data-height="40" data-updatems="140"></div>
+        <div class="led-matrix-display pointer off purple random down" data-width="8" data-height="40" data-updatems="90"></div>
+        <div class="led-matrix-display pointer off yellow random down" data-width="8" data-height="40" data-updatems="250"></div>
+        <div class="led-matrix-display pointer off green function left vertical" data-width="80" data-height="6" data-updatems="90" data-size="14px"></div>
+        <div class="led-matrix-display pointer off cyan function right vertical" data-width="80" data-height="6" data-updatems="90" data-size="14px"></div>
+    </div>
+
+</body>
+</html>
