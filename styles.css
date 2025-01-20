@@ -30,12 +30,13 @@ header {
     border-bottom: 3px solid var(--grey);
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    padding-left: 5%;
 }
 
 .site-logo {
     position: relative;
     text-align: center;
-    margin-left: 15%;
     min-width: 4.5em;
     color: var(--light-rose);
     left: 0px;
@@ -48,7 +49,7 @@ header {
 #nav-logo {
     color: var(--light-rose);
     font-weight: bold;
-    font-size: 1.55em;
+    font-size: 1.85em;
     text-decoration: none;
     z-index: 9999;
 }
@@ -62,10 +63,11 @@ header {
 .top-nav {
     display: flex;
     justify-content: space-around;
+    gap: 1rem;
     align-items: center;
-    margin: 0 30% 0 52%;
+    padding: 0 1rem;
     height: 3.2rem;
-    min-width: 20em;
+    /* background: green; */
 }
 
 .nav-item {
@@ -76,7 +78,7 @@ header {
 .nav-icons {
     display: flex;
     justify-content: space-around;
-    min-width: 6em;
+    /* min-width: 6em; */
 }
 
 .nav-icon {
@@ -93,6 +95,8 @@ header {
     align-items: center;
     font-size: 18px;
     font-weight: 600;
+    color: var(--highlight);
+    width: 5rem;
 }
 
 #root-highlight-color-input {
@@ -109,7 +113,7 @@ header {
     border: none;
     border-radius: 4px;
     background: rgba(148, 148, 148, 0.137);
-    color: var(--off-white);
+    color: var(--highlight);
 }
 #root-highlight-color-input:focus {
     outline: none;
@@ -121,6 +125,7 @@ header {
     text-decoration: none;
     color: var(--white-yellow);
     font-weight: bold;
+    font-size: 1.4rem;
     transition: color 200ms;
 }
 .top-nav a:after {
@@ -147,16 +152,15 @@ header {
 }
 
 
-/* PROJECTS SECTION */
+/* SECTION HEADER */
 
 .page-content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     min-height: 60em;
-    width: auto;
-    
-    /* padding: 2rem; */
+    width: 100%;
 }
 
 .section-header {
@@ -164,6 +168,8 @@ header {
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 4rem;
     padding: 1rem;
 }
 
@@ -171,7 +177,17 @@ header {
     padding: 4px;
 }
 
-.projects-section {
+.section-header img {
+    height: 15rem;
+}
+
+.section-header div {
+    font-size: 2rem;
+}
+
+/* PROJECTS SECTION */
+
+.projects-section { /* project list */
     margin: 2em;
     display: flex;
     flex-direction: column;
@@ -219,26 +235,36 @@ header {
 
 .project-item {
     position: relative;
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-between; */
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 55% 45%;
     width: 47%;
-    min-height: 100px;
+    min-height: 16rem;
     text-decoration: none;
     color: var(--off-black);
     margin: 0.5em;
-    background-color: antiquewhite;
+    background: antiquewhite;
+    background: yellow;
     border-radius: 8px;
     outline: 2px solid #faebd700;
     opacity: 0;
+    cursor: pointer;
     transform: translateY(30px);
     transition: opacity 0.75s ease,
                 transform 0.5s ease;
 }
+.project-item:hover {
+    /* transform: scale(110%); */
+    /* transform: translateX(10px); */
+    /* left: 20px; */
+}
+
 .project-item.visible {
     opacity: 1;
     transform: translateY(0);
 }
-
 
 .project-text {
     display: flex;
@@ -256,10 +282,13 @@ header {
     color: var(--off-black);
     left: 0px;
 }
+.page-link {
+    text-decoration: none;
+}
 
 .project-item:hover .project-title {
     color: var(--rose);
-    left: 5px;
+    /* left: 5px; */
 }
 
 .project-description-container {
@@ -274,29 +303,44 @@ header {
 .project-tags {
     justify-self: flex-end;
     display: flex;
+    gap: 1rem;
     justify-content: space-around;
     font-size: 0.9em;
     font-weight: bold;
+    width: fit-content;
 }
-.project-tags a {
+.project-tags * {
+    background: var(--highlight);
+    border-radius: 1rem;
     text-decoration: none;
-    color: var(--highlight);
+    border: none;
+    padding: 2px 0.4rem;
+    color: white;
+    cursor: pointer;
+    font-size: 0.8rem;
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
 }
-.project-tags a:hover {
-    text-decoration: underline;
+.project-tags *:hover {
+    opacity: 80%;
+}
+.project-tags *:active {
+    opacity: 100%;
+}
+
+
+.project-item .image-container { /* project image */
+    
 }
 
 .project-image {
     border: 0px solid var(--rose);
-    border-radius: 5px;
-    margin: 0.3em;
-    width: 45%;
     height: auto;
     outline: none;
-}
-
-.project-item:hover .project-image {
-    outline: 3px solid var(--rose);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 

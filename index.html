@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Matin Sanctum</title>
+    <link rel="icon" href="assets/icons/led-icon.png">
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
     <script defer src="projects/LEDMatrixDisplay/LEDMatrixDisplay.js"></script>
@@ -27,8 +28,8 @@
                 <a href="link.html">contact</a>
             </div>
             <div class="nav-item nav-icons">
-                <img class="nav-icon" src="images/github-icon.svg"></img>
-                <img class="nav-icon" src="images/pinterest.png">
+                <img class="nav-icon" src="assets/github-icon.svg"></img>
+                <img class="nav-icon" src="assets/pinterest.png">
             </div>
             <div class="color-input-container">
                 <div>#</div>
@@ -47,7 +48,9 @@
     <section class="page-content">
 
         <div class="section-header">
-            <div class="led-matrix-display text pointer change-color-on-click left" data-size="8px" data-updatems="60" data-pixelmargin="0.15em" data-width="98" data-height="9" data-text="    MY PROJECTS    "></div>
+            <!-- <div class="led-matrix-display text pointer change-color-on-click left" data-size="8px" data-updatems="60" data-pixelmargin="0.15em" data-width="98" data-height="9" data-text="    MY PROJECTS    "></div> -->
+            <img src="assets/mushroom.jpg" alt="">
+            <div>Some of my Projects!</div>
         </div>
 
         <div class="test">
@@ -68,24 +71,21 @@
             <div id="project-items-container"></div>
 
             <template id="project-item-template">
-                <div class="project-item">
-                    <div class="project-text">
-                        <span class="project-year">2024</span>
-                        <a class="page-link" href="" target="_blank">
+                <!-- <a href="" class="page-link" target="_blank"> -->
+                    <a class="project-item page-link" target="_blank">
+                        <div class="project-text">
+                            <span class="project-year">2024</span>
                             <div class="project-title">Swing!</div>
-                        </a>
-                        <div class="project-description-container">
-                            <span class="project-description">A little JavaScript game I wrote.</span>
+                            <div class="project-description-container">
+                                <span class="project-description">A little JavaScript game I wrote.</span>
+                            </div>
+                            <div class="project-tags">
+                            </div>
                         </div>
-                        <div class="project-tags">
-                        </div>
-                    </div>
-                    <a class="page-link" href="" target="_blank">
-                        <img class="project-image" src="images/swing.png">
+                        <img class="project-image" src="assets/swing.png">
                     </a>
-                </div>
+                <!-- </a> -->
             </template>
-
         </div>
     </section>
 </body>
