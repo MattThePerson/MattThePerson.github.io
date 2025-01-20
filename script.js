@@ -1,12 +1,18 @@
 
-/* const urlParams = new URLSearchParams(window.location.search);
-const filterTag = urlParams.get('tag');
-if (filterTag) {
-    console.log(filterTag);
-} */
 
+/* DATA */
 
-/* PROJECTS */
+const tag_colors = [
+    '#dd1eea', // pink
+    '#24ec10', // green
+    '#14c3f6', // light blue
+    '#f69614', // orange
+    '#9314f6', // purple
+    '#f61452', // rose
+    '#149fdc', //
+]
+
+const selectedTags = [];
 
 const projects = [
     {
@@ -51,51 +57,22 @@ const projects = [
     }
 ];
 
-function generateNiceColor() {
-    const hue = Math.floor(Math.random() * 360); // Full spectrum
-    const saturation = Math.floor(Math.random() * 30) + 70; // 70-100% for vibrant colors
-    const lightness = Math.floor(Math.random() * 20) + 40; // 40-60% for balanced brightness
+let sorted_projects = []; // sorted projects
 
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-}
-
-const colors = [
-    '#dd1eea', // pink
-    '#24ec10', // green
-    '#14c3f6', // light blue
-    '#f69614', // orange
-    '#9314f6', // purple
-    '#f61452', // rose
-    '#149fdc', //
-    
-    // '#FF6F61',  /* Coral Red */
-    // '#6B5B95',  /* Deep Purple */
-    // '#88B04B',  /* Olive Green */
-    // '#955251',  /* Taupe */
-    // '#B565A7',  /* Orchid Purple */
-    // '#009B77',  /* Teal Green */
-    // '#DD4124',  /* Fiery Red */
-    // '#45B8AC',  /* Aqua Green */
-    // '#EFC050',  /* Sunflower Yellow */
-    // '#5B5EA6',  /* Indigo Blue */
-    // '#9B2335',  /* Crimson */
-    // '#55B4B0',  /* Turquoise */
-    // '#E15D44',  /* Burnt Orange */
-]
-
+// assign each tag a unique color
 const tags = {};
 projects.forEach(p => {
     for (let tag of p.tags) {
         if (!(tag in tags)) {
             console.log(tag);
-            const randomIndex = Math.floor(Math.random() * colors.length);
-            const randomColor = colors.splice(0, 1)[0];
+            const randomIndex = Math.floor(Math.random() * tag_colors.length);
+            const randomColor = tag_colors.splice(0, 1)[0];
             tags[tag] = { color: randomColor }
         }
     }
 })
 
-// add placeholder assets
+/* TEMP: ADD PLACEHOLDER ASSETS */
 placeholder_assets = [
     'assets/placeholder_assets/a.png',
     'assets/placeholder_assets/b.jpg',
@@ -103,7 +80,6 @@ placeholder_assets = [
     'assets/placeholder_assets/d.jpg',
     'assets/placeholder_assets/e.png',
 ]
-
 let used_idx = 0;
 projects.forEach(proj => {
     if (proj.image == '') {
@@ -111,13 +87,16 @@ projects.forEach(proj => {
         used_idx += 1;
     }
 })
+/* TEMP END */
 
 /* FUNCTIONS */
 
-function addProjectsToPage(projectDatums) {
-    for (let i of [1,2,3]) {
-
-        for (let project of projectDatums) {
+// add project to page (update)
+function renderProjectCards(project_items) {
+    projectItemsContainer.innerHTML = '';
+    
+    for (let idx of [1,2,3]) { /* temp to simulate more projects! */
+        for (let project of project_items) {
             const item = projectItemTemplate.content.cloneNode(true);
             item.querySelector('.project-title').innerText = project.title;
             item.querySelector('.project-year').innerText = project.year;
@@ -125,15 +104,10 @@ function addProjectsToPage(projectDatums) {
             item.querySelector('.project-image').src = project.image || "assets/default.png";
             const tagsHolder = item.querySelector('.project-tags');
             for (let tag of project.tags) {
-                const tagEl = document.createElement('button');
-                tagEl.onclick = (e) => {
-                    e.preventDefault();
-                    console.log('clicked tag:', tag);
-                }
-                tagEl.className = 'tag';
-                tagEl.innerText = tag;
-                tagEl.style.background = tags[tag].color;
-                /* tagEl.href = "index.html?" + (new URLSearchParams({'tag' : tag})).toString(); */
+                const tagEl = create_tag_element(tag, () => {
+                    console.log(tag);
+                    add_selected_tag(tag);
+                });
                 tagsHolder.appendChild(tagEl);
             }
             item.querySelectorAll('.page-link').forEach( a => a.href = project.html );
@@ -141,11 +115,65 @@ function addProjectsToPage(projectDatums) {
         }
     }
 
-    document.querySelectorAll('.project-item').forEach((item,i) => {
+    document.querySelectorAll('.project-item').forEach((item, idx) => {
         setTimeout(() => {
             item.classList.add('visible');
-        }, i*100);
+        }, idx*100);
     });
+}
+
+
+// create tag element
+function create_tag_element(tag_name, onclick_func) {
+    const tagEl = document.createElement('button');
+    tagEl.onclick = (e) => {
+        e.preventDefault();
+        console.log('clicked tag:', tag);
+    }
+    tagEl.className = 'tag';
+    tagEl.innerText = tag_name;
+    tagEl.style.background = tags[tag_name].color;
+    tagEl.onclick = (e) => {
+        e.preventDefault();
+        onclick_func();
+    }
+    return tagEl;
+}
+
+// adds tag element to selected tags element if doesnt exist
+function add_selected_tag(tag_name) {
+    if (!selectedTags.includes(tag_name)) {
+        selectedTags.push(tag_name);
+        render_selected_tags(selectedTags);
+    }
+}
+
+function remove_selected_tag(tag_name) {
+    selectedTags.splice(selectedTags.indexOf(tag_name), 1);
+    render_selected_tags(selectedTags);
+}
+
+function render_selected_tags(tags) {
+    const selectedTagsElement = document.querySelector('.selected-tags');
+    selectedTagsElement.innerHTML = '';
+    tags.forEach(tag_name => {
+        const tagEl = create_tag_element(tag_name, () => {
+            remove_selected_tag(tag_name);
+        })
+        selectedTagsElement.appendChild(tagEl);
+    });
+    renderProjectCards(filterProjects(projects, selectedTags));
+}
+
+function filterProjects(project_items, filter_tags) {
+    if (filter_tags.length > 0) {
+        for (let tag_name of filter_tags) {
+            project_items = project_items.filter((project) => 
+                project.tags.includes(tag_name)
+            );
+        }
+    }
+    return project_items;
 }
 
 
@@ -154,7 +182,7 @@ function addProjectsToPage(projectDatums) {
 const projectItemsContainer = document.getElementById('project-items-container');
 const projectItemTemplate = document.getElementById('project-item-template');
 
-addProjectsToPage(projects);
+renderProjectCards(projects);
 
 
 /* EVENT LISTENERS */
@@ -162,35 +190,31 @@ addProjectsToPage(projects);
 document.querySelector('.sort-panel .default').addEventListener('click', event => {
     document.querySelectorAll('.sort-panel button').forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');
-    projectItemsContainer.innerHTML = '';
-    addProjectsToPage(projects);
+    renderProjectCards(sorted_projects);
 });
 
 document.querySelector('.sort-panel .oldest').addEventListener('click', event => {
     document.querySelectorAll('.sort-panel button').forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');
-    projectItemsContainer.innerHTML = '';
-    const sorted = projects.slice().sort( (a,b) => a.year - b.year );
-    console.log(sorted);
-    addProjectsToPage(sorted);
+    sorted_projects = projects.slice().sort( (a,b) => a.year - b.year );
+    // console.log(sorted_projects);
+    renderProjectCards(filterProjects(sorted_projects, selectedTags));
 });
 
 document.querySelector('.sort-panel .latest').addEventListener('click', event => {
     document.querySelectorAll('.sort-panel button').forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');
-    projectItemsContainer.innerHTML = '';
-    const sorted = projects.slice().sort( (a,b) => b.year - a.year );
-    console.log(sorted);
-    addProjectsToPage(sorted);
+    sorted_projects = projects.slice().sort( (a,b) => b.year - a.year );
+    // console.log(sorted_projects);
+    renderProjectCards(filterProjects(sorted_projects, selectedTags));
 });
 
 document.querySelector('.sort-panel .alphabetic').addEventListener('click', event => {
     document.querySelectorAll('.sort-panel button').forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');
-    projectItemsContainer.innerHTML = '';
-    const sorted = projects.slice().sort( (a,b) => a.title - b.title );
-    console.log(sorted);
-    addProjectsToPage(sorted);
+    sorted_projects = projects.slice().sort( (a,b) => a.title - b.title );
+    // console.log(sorted_projects);
+    renderProjectCards(filterProjects(sorted_projects, selectedTags));
 });
 
 // change root highlight color

@@ -1,0 +1,33 @@
+
+
+
+const terminalElement = document.querySelector('.terminal');
+
+
+async function writeTerminalText() {
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    const text = terminalElement.dataset.text;
+    let idx = 0;
+    const initialDelay = 500;
+    const timeBetweenChars = 80;
+    const timeVariance = 17;
+
+    console.log("sleeping");
+    await sleep(initialDelay);
+    console.log("done");
+    
+    while (idx < text.length) {
+        const char = text[idx++];
+        terminalElement.textContent += char;
+        const random = (Math.random()-0.5)*timeVariance;
+        const adder = (char === ' ') ? -25 : 0;
+        await sleep(timeBetweenChars + random + adder);
+    }
+}
+
+writeTerminalText();
+

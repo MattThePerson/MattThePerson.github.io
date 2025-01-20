@@ -1,0 +1,116 @@
+
+
+/* PROJECT ITEMS */
+
+.project-item {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    /* min-width: 80vw; */
+    width: 40rem;
+    /* min-width: 20rem; */
+    /* min-width: 47%; */
+    height: 16rem;
+    text-decoration: none;
+    color: var(--off-black);
+    margin: 0.5em;
+    background: antiquewhite;
+    border-radius: 8px;
+    outline: 2px solid #faebd700;
+    opacity: 0;
+    cursor: pointer;
+    transform: translateY(30px);
+    transition: opacity 0.75s ease,
+                transform 0.5s ease;
+}
+.project-item:hover {
+    outline: 1px solid var(--highlight);
+}
+
+.project-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-text { /* TEXT (left side) */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5em;
+    height: 100%;
+}
+
+.project-year {
+    font-weight: 600;
+    color: var(--highlight);
+    filter: brightness(0.8);
+}
+
+.project-title {
+    position: relative;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin: 0.2em 1em;
+    padding: 0 0.5em;
+    color: var(--off-black);
+    left: 0px;
+}
+.page-link {
+    text-decoration: none;
+}
+
+.project-item:hover .project-title {
+    color: var(--highlight);
+}
+
+.project-description-container {
+    height: 50%;
+    padding: 0.4em;
+}
+
+.project-description {
+    font-size: 0.9em;
+}
+
+.project-tags {
+    justify-self: flex-end;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-around;
+    font-size: 0.9em;
+    font-weight: bold;
+    width: fit-content;
+}
+.project-tags * {
+    background: var(--highlight);
+    border-radius: 1rem;
+    text-decoration: none;
+    border: none;
+    padding: 2px 0.4rem;
+    color: white;
+    cursor: pointer;
+    font-size: 0.8rem;
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+}
+.project-tags *:hover {
+    opacity: 90%;
+    filter: brightness(1.2);
+}
+.project-tags *:active {
+    opacity: 100%;
+    filter: brightness(1.0);
+}
+
+.image-container { /* project image */
+    height: 100%;
+    contain: size;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

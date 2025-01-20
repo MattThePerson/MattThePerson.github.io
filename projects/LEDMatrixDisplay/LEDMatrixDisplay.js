@@ -428,7 +428,7 @@ document.querySelectorAll('.led-matrix-display').forEach(displayElement => {
 
     // add color class to each pixel
     let pixelColor = displayColors.find(color => displayElement.classList.contains(color));
-    console.log(pixelColor);
+    // console.log(pixelColor);
     if (pixelColor == null)
         pixelColor = 'orange';
     if (displayElement.classList.contains('random-color'))
