@@ -19,6 +19,8 @@ LED Display Parameters:
 
 /* VARIABLES */
 
+const displayColors = ['orange', 'red', 'green', 'blue', 'yellow', 'purple', 'pink', 'white', 'cyan'];
+
 const char_map = [
     ["00000000", "00000000", "00000000", "00000000", "00000000"], //space
     ["00000000", "00000000", "01111001", "00000000", "00000000"], //exclamation_mark
@@ -214,25 +216,34 @@ function update_pixel_displacement(display) {
         display.pixel_displacement_y = 0;
 }
 
-/* function shift_pixels(values, direction, jump) {
-    let shifted_pixels = [];
-    if (direction == 'left') {
-        let hold_col = values[0];
-        for (let j = 0; j < values.length; j++) {
-            shifted_pixels[j] = values[j+jump]
-        }
-        values[0] = values[values.length-1];
+function setDisplayPixelsColor(displayElement, color) {
+    if (typeof color === 'string') {
+        displayElement.querySelectorAll('.display-pixel').forEach(pixel => {
+            displayColors.forEach(color => pixel.classList.remove(color));
+            pixel.classList.add(color)
+        });
     } else {
-        console.log('Havent added that direction yet');
+        // pixel color map option
     }
-} */
-
+}
 
 
 /* UTILITY FUNCTIONS */
 
 function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max)
+}
+
+function getRandomItem(array) {
+    return array[ Math.floor(Math.random()*array.length) ];
+}
+
+function getRandomItemDiff(array, compare) {
+    for (let i = 0; i < 100; i++) {
+        let item = getRandomItem(array, compare);
+        if (item != compare)
+            return item;
+    }
 }
 
 /* ADD STYLE */
@@ -258,12 +269,31 @@ style.innerHTML = `
 
 .display-pixel {
     height: 0.3em;
-    width:  0.27em;
+    width:  0.3em;
     margin: 0.2em;
     border-radius: 30%;
     background: rgb(43, 43, 43);
     box-shadow: 0 0 0.1em 0.1em rgba(39, 39, 39, 0.514);
+    opacity: 1;
+    animation: none;
 }
+
+@keyframes flicker {
+    0%,  { opacity: 1; }
+    10%  {opacity: 0.4}
+    20%  {opacity: 1}
+    30%  {opacity: 0.4}
+    40%  {opacity: 1}
+    50%  {opacity: 0.6}
+    80%  {opacity: 0.6}
+    90%  {opacity: 1}
+    100% {opacity: 1}
+}
+
+.display-pixel.flicker {
+    animation: flicker 0.4s infinite;
+}
+
 
 /* ON PIXEL COLORS */
 
@@ -349,7 +379,7 @@ document.head.appendChild(style);
 const displays = [];
 
 document.querySelectorAll('.led-matrix-display').forEach(displayElement => {
-    console.log("Creating LED Matrix Display");
+    /* console.log("Creating LED Matrix Display"); */
 
     let display = {
         width : parseInt(displayElement.dataset.width) || 36,
@@ -373,6 +403,7 @@ document.querySelectorAll('.led-matrix-display').forEach(displayElement => {
     display.pixel_values = generate_pixel_values_matrix(display);
     
     // Create display elements
+    const pixelMargin = displayElement.dataset.pixelmargin || "0.2em";
     const background = document.createElement('div');
     background.className = 'display-background';
     for (let i = 0; i < display.width; i++) {
@@ -381,6 +412,7 @@ document.querySelectorAll('.led-matrix-display').forEach(displayElement => {
         for (let j = 0; j < display.height; j++) {
             let pixel = document.createElement('div');
             pixel.classList.add('display-pixel');
+            pixel.style.margin = pixelMargin;
             col.appendChild(pixel);
         }
         background.appendChild(col);
@@ -395,9 +427,17 @@ document.querySelectorAll('.led-matrix-display').forEach(displayElement => {
         displayElement.style.cursor = 'pointer';
 
     // add color class to each pixel
-    for (let color of ['orange', 'red', 'green', 'blue', 'yellow', 'purple', 'pink', 'white', 'cyan', 'yellowgreen']) {
+    let pixelColor = displayColors.find(color => displayElement.classList.contains(color));
+    console.log(pixelColor);
+    if (pixelColor == null)
+        pixelColor = 'orange';
+    if (displayElement.classList.contains('random-color'))
+        pixelColor = getRandomItem(displayColors);
+    setDisplayPixelsColor(displayElement, pixelColor);
+
+    for (let color of displayColors) {
         if (displayElement.classList.contains(color)) {
-            displayElement.querySelectorAll('.display-pixel').forEach(pixel => pixel.classList.add(color));
+            setDisplayPixelsColor(displayElement, color)
         }
     }
 
@@ -410,7 +450,14 @@ document.querySelectorAll('.led-matrix-display').forEach(displayElement => {
             display.paused = false;
         });
     }
-    if (!displayElement.classList.contains('noclick')) {
+    if (displayElement.classList.contains('change-color-on-click')) {
+        displayElement.addEventListener('click', arg => {
+            let color = getRandomItem(displayColors);
+            console.log(color);
+            setDisplayPixelsColor(displayElement, color);
+        });
+    }
+    else if (!displayElement.classList.contains('noclick')) {
         displayElement.addEventListener('click', arg => {
             display.switched_on = !display.switched_on;
         });
@@ -431,8 +478,16 @@ document.querySelectorAll('.led-matrix-display').forEach(displayElement => {
 
     // flicker
     if (displayElement.classList.contains('flicker')) {
-        //
+        setInterval(() => {
+            /* console.log("Adding flicked"); */
+            displayElement.querySelectorAll('.display-pixel').forEach(pixel => pixel.classList.add('flicker') );
+            setTimeout(() => {
+                /* console.log("Removing flicker"); */
+                displayElement.querySelectorAll('.display-pixel').forEach(pixel => pixel.classList.remove('flicker') );
+            }, Math.random()*300);
+        }, /* (Math.random()**2)*3000 +  */ Math.random()*4000 + 1000);
     }
     displays.push(display);
 });
+
 

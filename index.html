@@ -2,16 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=k, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <script defer src="projects/LEDMatrixDisplay/LEDMatrixDisplay.js"></script>
 </head>
 <body>
     
     <!-- HEADER -->
     <header>
         <div class="site-logo">
-            <a href="index.html">.matti</a>
+            <div class="led-matrix-display random-color change-color-on-click pointer" data-width="3" data-height="3" data-updatems="250" data-size="12px"></div>
+            <a id="nav-logo" href="#">matti</a>
         </div>
         <div class="top-nav">
             <div class="nav-item">
@@ -27,110 +30,62 @@
                 <img class="nav-icon" src="images/github-icon.svg"></img>
                 <img class="nav-icon" src="images/pinterest.png">
             </div>
+            <div class="color-input-container">
+                <div>#</div>
+                <input id="root-highlight-color-input" type="text" autocomplete="off">
+            </div>
         </div>
     </header>
 
     <!-- MAIN -->
     <main>
-
+        
     </main>
 
-    <!-- PROJECTS -->
-    <section class="container">
-        <div class="projects">
-            <h2>PROJECTS</h2>
-            <div class="project-items">
 
-                <a href="projectPages/swing.html" class="project-item">
+    <!-- PROJECTS SECTION -->
+    <section class="page-content">
+
+        <div class="section-header">
+            <div class="led-matrix-display text pointer change-color-on-click left" data-size="8px" data-updatems="60" data-pixelmargin="0.15em" data-width="98" data-height="9" data-text="    MY PROJECTS    "></div>
+        </div>
+
+        <div class="test">
+            <div class="border"></div>
+            <h2>Text</h2>
+        </div>
+
+        <div class="projects-section">
+            <div class="sort-panel">
+                <div class="sort-buttons">
+                    <button class="default selected">DEFAULT</button>
+                    <button class="latest">LATEST</button>
+                    <button class="oldest">OLDEST</button>
+                    <button class="alphabetic">ALPHABETIC</button>
+                </div>
+            </div>
+            
+            <div id="project-items-container"></div>
+
+            <template id="project-item-template">
+                <div class="project-item">
                     <div class="project-text">
-                        <span class="project-title">Swing!</span>
+                        <span class="project-year">2024</span>
+                        <a class="page-link" href="" target="_blank">
+                            <div class="project-title">Swing!</div>
+                        </a>
                         <div class="project-description-container">
                             <span class="project-description">A little JavaScript game I wrote.</span>
                         </div>
                         <div class="project-tags">
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">p5.js</span>
                         </div>
                     </div>
-                    <img class="project-image" src="images/swing.png">
-                </a>
-                
-                <a href="projectPages/led_matrix.html"  class="project-item">
-                    <div class="project-text">
-                        <span class="project-title">LED Dot Matrix Displays (in CSS)</span>
-                        <div class="project-description-container">
-                            <span class="project-description"></span>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag">CSS</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">HTML</span>
-                        </div>
-                    </div>
-                    <img class="project-image" src="images/digifab.png">
-                </a>
+                    <a class="page-link" href="" target="_blank">
+                        <img class="project-image" src="images/swing.png">
+                    </a>
+                </div>
+            </template>
 
-                <a href="none.com"  class="project-item">
-                    <div class="project-text">
-                        <span class="project-title">Arduino project</span>
-                        <div class="project-description-container">
-                            <span class="project-description">An arduino prototype of a car that can control it's own speed.</span>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag">Arduino</span>
-                            <span class="tag">CAD</span>
-                            <span class="tag">3d Printing</span>
-                        </div>
-                    </div>
-                    <img class="project-image" src="images/digifab.png">
-                </a>
-
-                <a href="none.com"  class="project-item">
-                    <div class="project-text">
-                        <span class="project-title">Flappy Bird ML</span>
-                        <div class="project-description-container">
-                            <span class="project-description">Training a neural network to play flappybird.</span>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag">JavScript</span>
-                            <span class="tag">p5.js</span>
-                            <span class="tag">Tensorflow.js</span>
-                        </div>
-                    </div>
-                    <img class="project-image" src="images/digifab.png">
-                </a>
-
-                <a href="projectPages/perlin_sketch.html"  class="project-item">
-                    <div class="project-text">
-                        <span class="project-title">Perlin Noise Landscape</span>
-                        <div class="project-description-container">
-                            <span class="project-description">An arduino prototype of a car that can control it's own speed.</span>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag">Arduino</span>
-                            <span class="tag">CAD</span>
-                            <span class="tag">3d Printing</span>
-                        </div>
-                    </div>
-                    <img class="project-image" src="images/digifab.png">
-                </a>
-
-                <a href="none.com"  class="project-item">
-                    <div class="project-text">
-                        <span class="project-title">Arduino project</span>
-                        <div class="project-description-container">
-                            <span class="project-description">An arduino prototype of a car that can control it's own speed.</span>
-                        </div>
-                        <div class="project-tags">
-                            <span class="tag">Arduino</span>
-                            <span class="tag">CAD</span>
-                            <span class="tag">3d Printing</span>
-                        </div>
-                    </div>
-                    <img class="project-image" src="images/digifab.png">
-                </a>
-
-            </div>
         </div>
     </section>
 </body>
