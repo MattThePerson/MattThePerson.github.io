@@ -12,9 +12,9 @@ async function writeTerminalText() {
 
     const text = terminalElement.dataset.text;
     let idx = 0;
-    const initialDelay = 500;
-    const timeBetweenChars = 60;
-    const timeVariance = 13;
+    const initialDelay = 900;
+    const timeBetweenChars = 50;
+    const timeVariance = 45;
 
     await sleep(initialDelay);
     
@@ -22,7 +22,7 @@ async function writeTerminalText() {
         const char = text[idx++];
         terminalElement.textContent += char;
         const random = (Math.random()-0.5)*timeVariance;
-        const adder = (char === ' ') ? -25 : 0;
+        const adder = (char === ' ') ? -35 : 0;
         await sleep(timeBetweenChars + random + adder);
     }
 

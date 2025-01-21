@@ -8,19 +8,15 @@ const tag_colors = [
     '#14c3f6', // light blue
     '#f69614', // orange
     '#9314f6', // purple
-    '#f61452', // rose
-    '#149fdc', //
+    '#f61452', // bright red
+    '#0e38f5', // blue
+    '#14f6a4', // teal
+    '#abbd5c', // beige
+    '#c27417', // blood orange
+    '#9e17c2', // purple-red
+    '#', // 
 ]
 
-const selectedTags = [];
-
-
-/* 
-PROJECTS TO ADD:
-- (GitHub) CandyPop Gallery (when it looks nice, make gif of sfw)
-- (GitHub) Rainbow Simulator (need to finish lol)
-- 
-*/
 
 const projects = [
     {
@@ -44,8 +40,8 @@ const projects = [
     {
         title: 'LED Dot Matrix Displays (in CSS!)',
         year: '2024.06',
-        description: '',
-        tags: ['CSS', 'JavaScript', 'HTML'],
+        description: 'A JS library to add interactive Dot Matrix displays to your webpage! Visuals achieved entirely in CSS. Fair warning, they are quite resource intensive. ',
+        tags: ['CSS', 'JavaScript'],
         image: 'assets/project_images/dot-matrix.png',
         html: 'projects/LEDMatrixDisplay/index.html',
         link_type: '',
@@ -54,15 +50,15 @@ const projects = [
         title: 'Arduino project',
         year: '2022',
         description: "An arduino prototype of a car that can control it's own speed.",
-        tags: ['Arduino', 'CAD', '3D Printing'],
-        image: '',
+        tags: ['Arduino', 'CAD', '3D Printing', 'C++'],
+        image: 'assets/project_images/arduino-project.png',
         html: '',
         link_type: 'markdown',
     },
     {
         title: 'Perlin Noise Landscape',
         year: '2023',
-        description: 'Fun little p5.js sketch to visualize perlin noise',
+        description: 'Fun little p5.js sketch to visualize perlin noise. The noise function is two dimensional giving the effect of a landscape. Tweak the parameters and see how it changes!',
         tags: ['JavaScript', 'p5.js'],
         image: 'assets/project_images/perlin-noise.png',
         html: 'projects/perlin/index.html',
@@ -77,24 +73,47 @@ const projects = [
         html: 'projects/FlappyBird/index.html',
         link_type: '',
     },
+    {
+        title: 'CandyPop Gallery',
+        year: '2024.11',
+        description: 'A media exploration app designed to address the UI/UX shortcomings (in my opinion) when exploring media using sites like Twitter, Instagram and Reddit. Frontend written in ReactJS and backend using Python Flask.',
+        tags: ['JavaScript', 'ReactJS', 'Python'],
+        image: 'assets/project_images/candypop-gall-temp.png',
+        html: 'projects/FlappyBird/index.html',
+        link_type: 'github🡭',
+    },
 ];
 
-let sorted_projects = []; // sorted projects
-
+// let sorted_projects = [];
+const selectedTags = [];
+let sortByParam = null;
+let sortByDescending = true;
 
 
 /* FUNCTIONS */
+
+// 
+function updateProjectCards() {
+    let projects_to_display = filterProjects(projects, selectedTags)
+    if (sortByParam) {
+        projects_to_display = sortObjectByStringParam(projects_to_display, sortByParam, sortByDescending);
+    }
+    renderProjectCards(projects_to_display);
+}
 
 // add project to page (update)
 function renderProjectCards(project_items) {
     projectItemsContainer.innerHTML = '';
     
     setTimeout(() => {
-        for (let idx of [1]) { /* temp to simulate more projects! */
-            for (let project of project_items) {
-                const card = create_project_card(project);
-                projectItemsContainer.appendChild(card);
-            }
+        for (let project of project_items) {
+            const card = create_project_card(project);
+            projectItemsContainer.appendChild(card);
+        }
+        if (project_items.length%2 !== 0) {
+            const invisibleCard = create_project_card(project_items[0]);
+            invisibleCard.querySelector('.project-item').style.visibility='hidden';
+            projectItemsContainer.appendChild(invisibleCard);
         }
 
         // become visible staggered animation
@@ -116,7 +135,7 @@ function create_project_card(project) {
     const tagsHolder = item.querySelector('.project-tags');
     for (let tag of project.tags) {
         const tagEl = create_tag_element(tag, () => {
-            console.log(tag);
+            // console.log(tag);
             add_selected_tag(tag);
         }, 'filter by tag: ');
         tagsHolder.appendChild(tagEl);
@@ -130,10 +149,6 @@ function create_project_card(project) {
 // create tag element
 function create_tag_element(tag_name, onclick_func, title_prefix='tag: ') {
     const tagEl = document.createElement('button');
-    tagEl.onclick = (e) => {
-        e.preventDefault();
-        console.log('clicked tag:', tag);
-    }
     tagEl.className = 'tag';
     tagEl.innerText = tag_name;
     tagEl.style.background = tags[tag_name].color;
@@ -168,9 +183,10 @@ function render_selected_tags(tags) {
         'remove tag: ')
         selectedTagsElement.appendChild(tagEl);
     });
-    renderProjectCards(filterProjects(projects, selectedTags));
+    updateProjectCards();
 }
 
+// project sorting and filtering
 function filterProjects(project_items, filter_tags) {
     if (filter_tags.length > 0) {
         for (let tag_name of filter_tags) {
@@ -182,6 +198,29 @@ function filterProjects(project_items, filter_tags) {
     return project_items;
 }
 
+function sortObjectByStringParam(project_items, param, descending) {
+    if (param === null) {
+        return project_items;
+    }
+    if (descending) {
+        return project_items.slice().sort( (b,a) => {
+            let a_str = a[param].toLowerCase();
+            let b_str = b[param].toLowerCase();
+            if (a_str < b_str) return -1;
+            if (a_str > b_str) return 1;
+            return 0;
+        });
+    } else {
+        return project_items.slice().sort( (a,b) => {
+            let a_str = a[param].toLowerCase();
+            let b_str = b[param].toLowerCase();
+            if (a_str < b_str) return -1;
+            if (a_str > b_str) return 1;
+            return 0;
+        });
+    }
+}
+
 
 
 /* EVENT LISTENERS */
@@ -191,31 +230,32 @@ function filterProjects(project_items, filter_tags) {
 document.querySelector('.sort-panel .default').addEventListener('click', event => {
     document.querySelectorAll('.sort-panel button').forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');
-    renderProjectCards(filterProjects(projects, selectedTags));
+    sortByParam = null;
+    updateProjectCards();
 });
 
 document.querySelector('.sort-panel .oldest').addEventListener('click', event => {
     document.querySelectorAll('.sort-panel button').forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');
-    sorted_projects = projects.slice().sort( (a,b) => a.year - b.year );
-    // console.log(sorted_projects);
-    renderProjectCards(filterProjects(sorted_projects, selectedTags));
+    sortByParam = 'year';
+    sortByDescending = false;
+    updateProjectCards();
 });
 
 document.querySelector('.sort-panel .latest').addEventListener('click', event => {
     document.querySelectorAll('.sort-panel button').forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');
-    sorted_projects = projects.slice().sort( (a,b) => b.year - a.year );
-    // console.log(sorted_projects);
-    renderProjectCards(filterProjects(sorted_projects, selectedTags));
+    sortByParam = 'year';
+    sortByDescending = true;
+    updateProjectCards();
 });
 
 document.querySelector('.sort-panel .alphabetic').addEventListener('click', event => {
     document.querySelectorAll('.sort-panel button').forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');
-    sorted_projects = projects.slice().sort( (a,b) => a.title - b.title );
-    // console.log(sorted_projects);
-    renderProjectCards(filterProjects(sorted_projects, selectedTags));
+    sortByParam = 'title';
+    sortByDescending = false;
+    updateProjectCards();
 });
 
 
@@ -226,9 +266,10 @@ const tags = {};
 projects.forEach(p => {
     for (let tag of p.tags) {
         if (!(tag in tags)) {
-            const randomIndex = Math.floor(Math.random() * tag_colors.length);
+            // const randomIndex = Math.floor(Math.random() * tag_colors.length);
             const randomColor = tag_colors.splice(0, 1)[0];
             tags[tag] = { color: randomColor }
+            console.log(tag, tags[tag].color);
         }
     }
 })
@@ -238,4 +279,6 @@ projects.forEach(p => {
 const projectItemsContainer = document.getElementById('project-items-container');
 const projectItemTemplate = document.getElementById('project-item-template');
 
-renderProjectCards(projects);
+setTimeout(() => {
+    updateProjectCards(projects);
+}, 250);

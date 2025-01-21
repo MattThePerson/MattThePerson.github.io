@@ -48,18 +48,21 @@
 .terminal-container {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.3rem;
     /* padding-top: 0.4rem; */
 }
 .terminal-container .squiggly {
-    font-size: 38px;
+    font-size: 48px;
     font-weight: 600;
     color: rgb(25, 221, 247);
     transform: translateY(-2px);
+    margin-right: 0.3rem;
 }
 .terminal-container .cursor {
-    width: 0.3rem;
+    width: 0.2rem;
     height: 1.8rem;
+    /* background: #fffa; */
+    background: rgba(221, 163, 56, 0.67);
     background: rgba(25, 221, 247, 0.67);
 }
 

@@ -24,7 +24,6 @@ if (pageAccessedByReload) {
 }
 
 const color = localStorage.getItem('mattisSanctum-highlightColor');
-console.log(color);
 if (color) {
     rootHighlightColorInput.value = color;
     document.documentElement.style.setProperty('--highlight', '#' + color);
