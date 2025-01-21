@@ -13,12 +13,10 @@ async function writeTerminalText() {
     const text = terminalElement.dataset.text;
     let idx = 0;
     const initialDelay = 500;
-    const timeBetweenChars = 80;
-    const timeVariance = 17;
+    const timeBetweenChars = 60;
+    const timeVariance = 13;
 
-    console.log("sleeping");
     await sleep(initialDelay);
-    console.log("done");
     
     while (idx < text.length) {
         const char = text[idx++];

@@ -8,38 +8,16 @@
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/project-item.css">
-    <script defer src="script.js"></script>
-    <script defer src="terminal.js"></script>
+    <script defer src="scripts/htmlComponentAdder.js"></script>
+    <script defer src="scripts/global.js"></script>
     <script defer src="projects/LEDMatrixDisplay/LEDMatrixDisplay.js"></script>
+    <script defer src="scripts/index.js"></script>
+    <script defer src="scripts/terminal.js"></script>
 </head>
 <body>
     
     <!-- HEADER -->
-    <header>
-        <div class="site-logo">
-            <div title="click me!" class="led-matrix-display random-color change-color-on-click pointer" data-width="3" data-height="3" data-updatems="250" data-size="13px"></div>
-            <div id="nav-logo" title="don't click me!">matti</div>
-        </div>
-        <div class="top-nav">
-            <div class="nav-item">
-                <a href="index.html">home</a>
-            </div>
-            <div class="nav-item">
-                <a href="link.html">about</a>
-            </div>
-            <div class="nav-item">
-                <a href="link.html">contact</a>
-            </div>
-            <div class="nav-item nav-icons">
-                <img class="nav-icon" src="assets/github-icon.svg"></img>
-                <img class="nav-icon" src="assets/pinterest.png">
-            </div>
-            <div class="color-input-container">
-                <div>#</div>
-                <input id="root-highlight-color-input" type="text" autocomplete="off" title="change me!">
-            </div>
-        </div>
-    </header>
+    <div class="html-component-injector" html-component="header"></div>
 
     <!-- MAIN -->
     <main>
@@ -60,10 +38,10 @@
         <div class="projects-section">
             <div class="sort-panel">
                 <div class="sort-buttons">
-                    <button class="default selected">DEFAULT</button>
-                    <button class="latest">NEWEST</button>
-                    <button class="oldest">OLDEST</button>
-                    <button class="alphabetic">ALPHABETIC</button>
+                    <button class="default selected" title="sort by">DEFAULT</button>
+                    <button class="latest" title="sort by">NEWEST</button>
+                    <button class="oldest" title="sort by">OLDEST</button>
+                    <button class="alphabetic" title="sort by">ALPHABETIC</button>
                 </div>
                 <div class="selected-tags project-tags"></div>
             </div>
@@ -88,8 +66,6 @@
             </template>
         </div>
     </section>
-    <footer>
-        Edited and stuff by Matt (Matti) Stirling
-    </footer>
+    <div class="html-component-injector" html-component="footer"></div>
 </body>
 </html>

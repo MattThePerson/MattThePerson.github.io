@@ -17,19 +17,27 @@ const selectedTags = [];
 
 const projects = [
     {
+        title: 'ascii-monet',
+        year: '2025',
+        description: 'A CLI utility I wrote to convert images into colorful ascii art in the terminal. Written in python and published to PyPi!',
+        tags: ['python', 'PyPi'],
+        image: 'assets/project_images/ascii-art.png',
+        html: ''
+    },
+    {
         title: 'Swing!',
         year: '2019',
-        description: 'A little JavaScript game I wrote.',
+        description: "A JavaScript game I made for a Game Jam (I didn't win). Created with the JavaScript library *p5.js*, it contains over 15,000 lines of code, 4 distinct levels and a paractice arena!",
         tags: ['JavaScript', 'p5.js'],
-        image: '',
+        image: 'assets/project_images/swing.png',
         html: 'https://matttheperson.github.io/Swing'
     },
     {
         title: 'LED Dot Matrix Displays (in CSS!)',
-        year: '2024',
-        description: 'Stuff here ...',
+        year: '2024.06',
+        description: '',
         tags: ['CSS', 'JavaScript', 'HTML'],
-        image: '',
+        image: 'assets/project_images/dot-matrix.png',
         html: 'projects/LEDMatrixDisplay/index.html'
     },
     {
@@ -45,7 +53,7 @@ const projects = [
         year: '2023',
         description: 'Fun little p5.js sketch to visualize perlin noise',
         tags: ['JavaScript', 'p5.js'],
-        image: '',
+        image: 'assets/project_images/perlin-noise.png',
         html: 'projects/perlin/index.html'
     },
     {
@@ -55,40 +63,12 @@ const projects = [
         tags: ['ML', 'JavaScript', 'p5.js'],
         image: '',
         html: ''
-    }
+    },
 ];
 
 let sorted_projects = []; // sorted projects
 
-// assign each tag a unique color
-const tags = {};
-projects.forEach(p => {
-    for (let tag of p.tags) {
-        if (!(tag in tags)) {
-            console.log(tag);
-            const randomIndex = Math.floor(Math.random() * tag_colors.length);
-            const randomColor = tag_colors.splice(0, 1)[0];
-            tags[tag] = { color: randomColor }
-        }
-    }
-})
 
-/* TEMP: ADD PLACEHOLDER ASSETS */
-placeholder_assets = [
-    'assets/placeholder_assets/a.png',
-    'assets/placeholder_assets/b.jpg',
-    'assets/placeholder_assets/c.webp',
-    'assets/placeholder_assets/d.jpg',
-    'assets/placeholder_assets/e.png',
-]
-let used_idx = 0;
-projects.forEach(proj => {
-    if (proj.image == '') {
-        proj.image = placeholder_assets[used_idx%placeholder_assets.length];
-        used_idx += 1;
-    }
-})
-/* TEMP END */
 
 /* FUNCTIONS */
 
@@ -101,7 +81,7 @@ function renderProjectCards(project_items) {
             for (let project of project_items) {
                 const item = projectItemTemplate.content.cloneNode(true);
                 item.querySelector('.project-title').innerText = project.title;
-                item.querySelector('.project-year').innerText = project.year;
+                item.querySelector('.project-year').innerText = project.year.split('.')[0];
                 item.querySelector('.project-description').innerText = project.description;
                 item.querySelector('.project-image').src = project.image || "assets/default.png";
                 const tagsHolder = item.querySelector('.project-tags');
@@ -121,9 +101,9 @@ function renderProjectCards(project_items) {
         document.querySelectorAll('.project-item').forEach((item, idx) => {
             setTimeout(() => {
                 item.classList.add('visible');
-            }, idx*100);
+            }, 10+idx*100);
         });
-    }, 10);
+    }, 50);
 }
 
 
@@ -183,13 +163,6 @@ function filterProjects(project_items, filter_tags) {
 }
 
 
-/* ADD PROJECTS TO PAGE */
-
-const projectItemsContainer = document.getElementById('project-items-container');
-const projectItemTemplate = document.getElementById('project-item-template');
-
-renderProjectCards(projects);
-
 
 /* EVENT LISTENERS */
 
@@ -223,23 +196,24 @@ document.querySelector('.sort-panel .alphabetic').addEventListener('click', even
     renderProjectCards(filterProjects(sorted_projects, selectedTags));
 });
 
-// change root highlight color
-const rootHighlightColorInput = document.getElementById('root-highlight-color-input');
-const rootStyles = getComputedStyle(document.documentElement);
-rootHighlightColorInput.value = rootStyles.getPropertyValue('--highlight').trim().substring(1,);
 
-rootHighlightColorInput.addEventListener('keydown', event => {
-    if (event.key == 'Enter') {
-        const input = event.target.value;
-        console.log(input);
-        document.documentElement.style.setProperty('--highlight', '#' + input);
+/* ADD PROJECTS TO PAGE */
+
+// assign each tag a unique color
+const tags = {};
+projects.forEach(p => {
+    for (let tag of p.tags) {
+        if (!(tag in tags)) {
+            const randomIndex = Math.floor(Math.random() * tag_colors.length);
+            const randomColor = tag_colors.splice(0, 1)[0];
+            tags[tag] = { color: randomColor }
+        }
     }
-});
+})
 
-// logo fly off
 
-document.getElementById('nav-logo').addEventListener('click', e => {
-    console.log("timid");
-    e.target.classList.add('timid');
-});
+// add projects to page
+const projectItemsContainer = document.getElementById('project-items-container');
+const projectItemTemplate = document.getElementById('project-item-template');
 
+renderProjectCards(projects);

@@ -51,7 +51,7 @@
     position: relative;
     font-weight: bold;
     font-size: 1.5em;
-    margin: 0.2em 1em;
+    margin: 0em 1em;
     padding: 0 0.5em;
     color: var(--off-black);
     left: 0px;
@@ -76,7 +76,7 @@
 .project-tags {
     justify-self: flex-end;
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
     justify-content: space-around;
     font-size: 0.9em;
     font-weight: bold;
@@ -107,6 +107,7 @@
 .image-container { /* project image */
     height: 100%;
     contain: size;
+    outline: 1.5px solid #0009;
 }
 
 .project-image {
