@@ -14,6 +14,7 @@ const tag_colors = [
 
 const selectedTags = [];
 
+
 const projects = [
     {
         title: 'Swing!',
@@ -95,36 +96,39 @@ projects.forEach(proj => {
 function renderProjectCards(project_items) {
     projectItemsContainer.innerHTML = '';
     
-    for (let idx of [1,2,3]) { /* temp to simulate more projects! */
-        for (let project of project_items) {
-            const item = projectItemTemplate.content.cloneNode(true);
-            item.querySelector('.project-title').innerText = project.title;
-            item.querySelector('.project-year').innerText = project.year;
-            item.querySelector('.project-description').innerText = project.description;
-            item.querySelector('.project-image').src = project.image || "assets/default.png";
-            const tagsHolder = item.querySelector('.project-tags');
-            for (let tag of project.tags) {
-                const tagEl = create_tag_element(tag, () => {
-                    console.log(tag);
-                    add_selected_tag(tag);
-                });
-                tagsHolder.appendChild(tagEl);
+    setTimeout(() => {
+        for (let idx of [1]) { /* temp to simulate more projects! */
+            for (let project of project_items) {
+                const item = projectItemTemplate.content.cloneNode(true);
+                item.querySelector('.project-title').innerText = project.title;
+                item.querySelector('.project-year').innerText = project.year;
+                item.querySelector('.project-description').innerText = project.description;
+                item.querySelector('.project-image').src = project.image || "assets/default.png";
+                const tagsHolder = item.querySelector('.project-tags');
+                for (let tag of project.tags) {
+                    const tagEl = create_tag_element(tag, () => {
+                        console.log(tag);
+                        add_selected_tag(tag);
+                    }, 'filter by tag: ');
+                    tagsHolder.appendChild(tagEl);
+                }
+                item.querySelectorAll('.page-link').forEach( a => a.href = project.html );
+                projectItemsContainer.appendChild(item);
             }
-            item.querySelectorAll('.page-link').forEach( a => a.href = project.html );
-            projectItemsContainer.appendChild(item);
         }
-    }
 
-    document.querySelectorAll('.project-item').forEach((item, idx) => {
-        setTimeout(() => {
-            item.classList.add('visible');
-        }, idx*100);
-    });
+        // become visible staggered animation
+        document.querySelectorAll('.project-item').forEach((item, idx) => {
+            setTimeout(() => {
+                item.classList.add('visible');
+            }, idx*100);
+        });
+    }, 10);
 }
 
 
 // create tag element
-function create_tag_element(tag_name, onclick_func) {
+function create_tag_element(tag_name, onclick_func, title_prefix='tag: ') {
     const tagEl = document.createElement('button');
     tagEl.onclick = (e) => {
         e.preventDefault();
@@ -137,6 +141,7 @@ function create_tag_element(tag_name, onclick_func) {
         e.preventDefault();
         onclick_func();
     }
+    tagEl.title = title_prefix + tag_name;
     return tagEl;
 }
 
@@ -159,7 +164,8 @@ function render_selected_tags(tags) {
     tags.forEach(tag_name => {
         const tagEl = create_tag_element(tag_name, () => {
             remove_selected_tag(tag_name);
-        })
+        },
+        'remove tag: ')
         selectedTagsElement.appendChild(tagEl);
     });
     renderProjectCards(filterProjects(projects, selectedTags));
@@ -190,7 +196,7 @@ renderProjectCards(projects);
 document.querySelector('.sort-panel .default').addEventListener('click', event => {
     document.querySelectorAll('.sort-panel button').forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');
-    renderProjectCards(sorted_projects);
+    renderProjectCards(filterProjects(projects, selectedTags));
 });
 
 document.querySelector('.sort-panel .oldest').addEventListener('click', event => {
@@ -229,7 +235,6 @@ rootHighlightColorInput.addEventListener('keydown', event => {
         document.documentElement.style.setProperty('--highlight', '#' + input);
     }
 });
-
 
 // logo fly off
 
