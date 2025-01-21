@@ -166,6 +166,8 @@ function filterProjects(project_items, filter_tags) {
 
 /* EVENT LISTENERS */
 
+// TODO: fix array not sorted when adding or removing tags!!
+
 document.querySelector('.sort-panel .default').addEventListener('click', event => {
     document.querySelectorAll('.sort-panel button').forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');

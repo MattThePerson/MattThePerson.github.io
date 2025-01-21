@@ -7,7 +7,7 @@
     --white-yellow: #e0e0dd;
     --rose: #d34e81;
     --light-rose: #dbc921;
-    --highlight: #b28;
+    --highlight: #c2a;
 }
 
 
@@ -21,6 +21,9 @@
 body {
     background: rgb(14, 14, 14);
     color: var(--white-yellow);
+}
+body section {
+    min-height: 50rem;
 }
 
 /* HEADER */
@@ -81,17 +84,19 @@ header {
 .nav-icons {
     display: flex;
     justify-content: space-around;
-    /* min-width: 6em; */
 }
 
-.nav-icon {
-    padding: 1px;
-    filter: invert(94%) sepia(12%) saturate(279%) hue-rotate(5deg) brightness(88%) contrast(93%);
+.icon-external-link {
     transition: all 200ms;
+    padding: 0;
 }
-.nav-icon:hover {
-    filter: invert(48%) sepia(15%) saturate(4138%) hue-rotate(300deg) brightness(87%) contrast(89%);
+.icon-external-link path {
+    fill: whitesmoke;
 }
+.icon-external-link:hover path {
+    fill: var(--highlight);
+}
+
 .color-input-container {
     position: relative;
     display: flex;
@@ -100,6 +105,10 @@ header {
     font-weight: 600;
     color: var(--highlight);
     width: 5rem;
+    font-family: sans-serif;
+}
+.color-input-container > div {
+    transform: translateY(-2px);
 }
 
 #root-highlight-color-input {
@@ -107,11 +116,13 @@ header {
     left: -4px;
     top: -2px;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
+    font-family: sans-serif;
     padding: 0.1em 0.15em;
+    padding-bottom: 1px;
     padding-left: 1.0em;
     width: 5em;
-    height: 1.1em;
+    height: 1.2em;
     text-justify: center;
     border: none;
     border-radius: 4px;
@@ -123,7 +134,7 @@ header {
 }
 
 /* nav links */
-.top-nav a {
+.top-nav .nav-item a {
     position: relative;
     text-decoration: none;
     color: var(--white-yellow);
@@ -137,7 +148,7 @@ header {
     width: 0%;
     height: 3px;
     content: '';
-    background: var(--rose);
+    background: var(--highlight);
     left: 0px;
     bottom: -3px;
     transition: all 180ms;
@@ -155,11 +166,12 @@ header {
 }
 
 
+
 /* FOOTER */
 footer {
     display: flex;
     justify-content: center;
     background: #ffffff15;
-    margin-top: 2rem;
+    margin-top: 7rem;
     padding: 1rem;
 }
