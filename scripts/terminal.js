@@ -25,6 +25,13 @@ async function writeTerminalText() {
         const adder = (char === ' ') ? -25 : 0;
         await sleep(timeBetweenChars + random + adder);
     }
+
+    const terminalCursor = document.querySelector('.terminal-window .cursor');
+
+    const intervalId = setInterval(() => {
+        // Toggle the visibility
+        terminalCursor.style.visibility = terminalCursor.style.visibility === 'hidden' ? 'visible' : 'hidden';
+    }, 700);
 }
 
 writeTerminalText();

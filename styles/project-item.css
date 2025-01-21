@@ -41,10 +41,16 @@
     height: 100%;
 }
 
-.project-year {
+.top-row {
+    display: flex;
+    justify-content: space-between;
     font-weight: 600;
     color: var(--highlight);
     filter: brightness(0.8);
+}
+
+.top-row .link-type {
+    font-size: 12px;
 }
 
 .project-title {

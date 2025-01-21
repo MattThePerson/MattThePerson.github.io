@@ -15,6 +15,13 @@ const tag_colors = [
 const selectedTags = [];
 
 
+/* 
+PROJECTS TO ADD:
+- (GitHub) CandyPop Gallery (when it looks nice, make gif of sfw)
+- (GitHub) Rainbow Simulator (need to finish lol)
+- 
+*/
+
 const projects = [
     {
         title: 'ascii-monet',
@@ -22,7 +29,8 @@ const projects = [
         description: 'A CLI utility I wrote to convert images into colorful ascii art in the terminal. Written in python and published to PyPi!',
         tags: ['Python', 'PyPi'],
         image: 'assets/project_images/ascii-art.png',
-        html: ''
+        html: '',
+        link_type: 'github🡭',
     },
     {
         title: 'Swing!',
@@ -30,7 +38,8 @@ const projects = [
         description: "A JavaScript game I made for a Game Jam! Created with the JavaScript library p5.js, it contains over 15,000 lines of code, 4 distinct levels and a paractice arena!",
         tags: ['JavaScript', 'p5.js'],
         image: 'assets/project_images/swing.png',
-        html: 'https://matttheperson.github.io/Swing'
+        html: 'https://matttheperson.github.io/Swing',
+        link_type: '',
     },
     {
         title: 'LED Dot Matrix Displays (in CSS!)',
@@ -38,7 +47,8 @@ const projects = [
         description: '',
         tags: ['CSS', 'JavaScript', 'HTML'],
         image: 'assets/project_images/dot-matrix.png',
-        html: 'projects/LEDMatrixDisplay/index.html'
+        html: 'projects/LEDMatrixDisplay/index.html',
+        link_type: '',
     },
     {
         title: 'Arduino project',
@@ -46,7 +56,8 @@ const projects = [
         description: "An arduino prototype of a car that can control it's own speed.",
         tags: ['Arduino', 'CAD', '3D Printing'],
         image: '',
-        html: ''
+        html: '',
+        link_type: 'markdown',
     },
     {
         title: 'Perlin Noise Landscape',
@@ -54,7 +65,8 @@ const projects = [
         description: 'Fun little p5.js sketch to visualize perlin noise',
         tags: ['JavaScript', 'p5.js'],
         image: 'assets/project_images/perlin-noise.png',
-        html: 'projects/perlin/index.html'
+        html: 'projects/perlin/index.html',
+        link_type: '',
     },
     {
         title: 'ML Flappy Bird',
@@ -62,7 +74,8 @@ const projects = [
         description: 'Training an Artificial Neural Network to play FlappyBird! The "birds" are trained by letting 100 birds try the game and then randomly mutating the most elite bird. The NN was coded entirely in JavaScript using a Matrix class.',
         tags: ['ML', 'JavaScript', 'p5.js'],
         image: 'assets/project_images/flappy-bird.png',
-        html: 'projects/FlappyBird/index.html'
+        html: 'projects/FlappyBird/index.html',
+        link_type: '',
     },
 ];
 
@@ -79,21 +92,8 @@ function renderProjectCards(project_items) {
     setTimeout(() => {
         for (let idx of [1]) { /* temp to simulate more projects! */
             for (let project of project_items) {
-                const item = projectItemTemplate.content.cloneNode(true);
-                item.querySelector('.project-title').innerText = project.title;
-                item.querySelector('.project-year').innerText = project.year.split('.')[0];
-                item.querySelector('.project-description').innerText = project.description;
-                item.querySelector('.project-image').src = project.image || "assets/default.png";
-                const tagsHolder = item.querySelector('.project-tags');
-                for (let tag of project.tags) {
-                    const tagEl = create_tag_element(tag, () => {
-                        console.log(tag);
-                        add_selected_tag(tag);
-                    }, 'filter by tag: ');
-                    tagsHolder.appendChild(tagEl);
-                }
-                item.querySelectorAll('.page-link').forEach( a => a.href = project.html );
-                projectItemsContainer.appendChild(item);
+                const card = create_project_card(project);
+                projectItemsContainer.appendChild(card);
             }
         }
 
@@ -104,6 +104,26 @@ function renderProjectCards(project_items) {
             }, 10+idx*100);
         });
     }, 50);
+}
+
+//
+function create_project_card(project) {
+    const item = projectItemTemplate.content.cloneNode(true);
+    item.querySelector('.project-title').innerText = project.title;
+    item.querySelector('.project-year').innerText = project.year.split('.')[0];
+    item.querySelector('.project-description').innerText = project.description;
+    item.querySelector('.project-image').src = project.image || "assets/default.png";
+    const tagsHolder = item.querySelector('.project-tags');
+    for (let tag of project.tags) {
+        const tagEl = create_tag_element(tag, () => {
+            console.log(tag);
+            add_selected_tag(tag);
+        }, 'filter by tag: ');
+        tagsHolder.appendChild(tagEl);
+    }
+    item.querySelectorAll('.page-link').forEach( a => a.href = project.html );
+    item.querySelector('.link-type').innerText = project.link_type;
+    return item;
 }
 
 

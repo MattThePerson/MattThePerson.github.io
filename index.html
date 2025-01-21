@@ -31,7 +31,13 @@
         <div class="section-header">
             <!-- <div class="led-matrix-display text pointer change-color-on-click left" data-size="8px" data-updatems="60" data-pixelmargin="0.15em" data-width="98" data-height="9" data-text="    MY PROJECTS    "></div> -->
             <!-- <img src="assets/mushroom.jpg" alt=""> -->
-            <div class="terminal" data-text="Here are some of my projects!"></div>
+            <div class="terminal-window">
+                <div class="terminal-container">
+                    <div class="squiggly">~</div>
+                    <div class="terminal" data-text="Here are some of my projects!"></div>
+                    <div class="cursor"></div>
+                </div>
+            </div>
         </div>
 
         <div class="projects-section">
@@ -50,7 +56,10 @@
             <template id="project-item-template">
                 <a class="project-item page-link" target="_blank">
                     <div class="project-text">
-                        <span class="project-year">2024</span>
+                        <span class="top-row">
+                            <div class="project-year">2024</div>
+                            <div class="link-type"></div>
+                        </span>
                         <div class="project-title">Swing!</div>
                         <div class="project-description-container">
                             <span class="project-description">A little JavaScript game I wrote.</span>
