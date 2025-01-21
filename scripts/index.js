@@ -20,14 +20,14 @@ const projects = [
         title: 'ascii-monet',
         year: '2025',
         description: 'A CLI utility I wrote to convert images into colorful ascii art in the terminal. Written in python and published to PyPi!',
-        tags: ['python', 'PyPi'],
+        tags: ['Python', 'PyPi'],
         image: 'assets/project_images/ascii-art.png',
         html: ''
     },
     {
         title: 'Swing!',
         year: '2019',
-        description: "A JavaScript game I made for a Game Jam (I didn't win). Created with the JavaScript library *p5.js*, it contains over 15,000 lines of code, 4 distinct levels and a paractice arena!",
+        description: "A JavaScript game I made for a Game Jam! Created with the JavaScript library p5.js, it contains over 15,000 lines of code, 4 distinct levels and a paractice arena!",
         tags: ['JavaScript', 'p5.js'],
         image: 'assets/project_images/swing.png',
         html: 'https://matttheperson.github.io/Swing'
@@ -59,10 +59,10 @@ const projects = [
     {
         title: 'ML Flappy Bird',
         year: '2020',
-        description: 'Training a neural network to play flappybird.',
+        description: 'Training an Artificial Neural Network to play FlappyBird! The "birds" are trained by letting 100 birds try the game and then randomly mutating the most elite bird. The NN was coded entirely in JavaScript using a Matrix class.',
         tags: ['ML', 'JavaScript', 'p5.js'],
-        image: '',
-        html: ''
+        image: 'assets/project_images/flappy-bird.png',
+        html: 'projects/FlappyBird/index.html'
     },
 ];
 
