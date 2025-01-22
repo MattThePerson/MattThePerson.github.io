@@ -12,8 +12,8 @@ async function writeTerminalText() {
 
     const text = terminalElement.dataset.text;
     let idx = 0;
-    const initialDelay = 900;
-    const timeBetweenChars = 50;
+    const initialDelay = 1100;
+    const timeBetweenChars = 70;
     const timeVariance = 45;
 
     await sleep(initialDelay);

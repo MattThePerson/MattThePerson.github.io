@@ -64,7 +64,7 @@ function HeaderTemplate() {
 function FooterTemplate() {
     return `
 <footer>
-    Edited and stuff by Matt (Matti) Stirling
+    Coded and stuff by Matt (Matti) Stirling
 </footer>
     `
 }

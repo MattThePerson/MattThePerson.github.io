@@ -149,11 +149,13 @@
     color: white;
 }
 
-#project-items-container { /* project items container */
+/* PROJECT ITEMS CONTAINER */
+
+#project-items-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem 1.5rem;
+    gap: 1.5rem 1.9rem;
 }
 
 .selected-tags {
