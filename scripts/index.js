@@ -25,7 +25,7 @@ const projects = [
         description: 'A CLI utility I wrote to convert images into colorful ascii art in the terminal. Written in Python and published to PyPi!',
         tags: ['Python', 'PyPi'],
         image: 'assets/project_images/ascii-art.png',
-        html: '',
+        link: 'https://github.com/MattThePerson/ascii-monet',
         link_type: 'github🡭',
     },
     {
@@ -34,7 +34,7 @@ const projects = [
         description: "A JavaScript game I made for a Game Jam! Created with the JavaScript library p5.js, it contains over 15,000 lines of code, 4 distinct levels and a paractice arena!",
         tags: ['JavaScript', 'p5.js'],
         image: 'assets/project_images/swing.png',
-        html: 'https://matttheperson.github.io/Swing',
+        link: 'https://matttheperson.github.io/Swing',
         link_type: '',
     },
     {
@@ -43,7 +43,7 @@ const projects = [
         description: 'A JS library to add interactive Dot Matrix displays to your webpage! Visuals achieved entirely in CSS. Fair warning, they are quite resource intensive. ',
         tags: ['CSS', 'JavaScript'],
         image: 'assets/project_images/dot-matrix.png',
-        html: 'projects/LEDMatrixDisplay/index.html',
+        link: 'projects/LEDMatrixDisplay/index.html',
         link_type: '',
     },
     {
@@ -52,7 +52,7 @@ const projects = [
         description: "Training an Artificial Neural Network to play FlappyBird! The \"birds\" are trained by letting 100 birds try the game and then randomly mutating the most elite bird. The NN and was coded entirely in JavaScript.",
         tags: ['ML', 'JavaScript', 'p5.js'],
         image: 'assets/project_images/flappy-bird.png',
-        html: 'projects/FlappyBird/index.html',
+        link: 'projects/FlappyBird/index.html',
         link_type: '',
     },
     {
@@ -61,26 +61,8 @@ const projects = [
         description: "An 3d printed Arduino-controlled car that follows objects using Ultrasonic Sensors. Made as a group project for my 'Principles of Digital Fabrication' course.",
         tags: ['Arduino', 'CAD', '3D Printing', 'C++'],
         image: 'assets/project_images/arduino-project.png',
-        html: '',
+        link: '',
         link_type: 'markdown',
-    },
-    {
-        title: 'Perlin Noise Landscape',
-        year: '2023',
-        description: 'Fun little p5.js sketch to visualize perlin noise. The noise function is two dimensional giving the effect of a landscape. Tweak the parameters and see how it changes!',
-        tags: ['JavaScript', 'p5.js'],
-        image: 'assets/project_images/perlin-noise.png',
-        html: 'projects/perlin/index.html',
-        link_type: '',
-    },
-    {
-        title: 'CandyPop Gallery',
-        year: '2024.11',
-        description: '(Under Construction) A media exploration app designed to address the UI/UX shortcomings (in my opinion) when exploring media using sites like Twitter, Instagram and Reddit. Frontend written in ReactJS and backend using Python Flask.',
-        tags: ['JavaScript', 'ReactJS', 'Python'],
-        image: 'assets/project_images/candypop-gall-temp.png',
-        html: 'https://github.com/MattThePerson/CandyPopGallery',
-        link_type: 'github🡭',
     },
     {
         title: 'Double Pendulum Sketch',
@@ -88,7 +70,16 @@ const projects = [
         description: 'A p5.js sketch of an interactive double pendulum. Based off a Coding Train tutorial which used the Processing language.',
         tags: ['JavaScript', 'p5.js'],
         image: 'assets/project_images/double-pendulum.png',
-        html: 'projects/DoublePendulum/index.html',
+        link: 'projects/DoublePendulum/index.html',
+        link_type: '',
+    },
+    {
+        title: 'Solar System Simulation',
+        year: '2019',
+        description: 'Simulating evolution of a gravitational system starting with randomly scattered rocks that have gravity and can merge with other rocks!',
+        tags: ['JavaScript', 'p5.js'],
+        image: 'assets/project_images/solar-system-simulation.png',
+        link: 'projects/SolarSystemSimulation/index.html',
         link_type: '',
     },
     {
@@ -97,26 +88,35 @@ const projects = [
         description: 'A p5.js sketch of an interactive vibrating string demonstrating how vibrations can emerge from tiny, elastic segments. Change the parameters and see how it behaves!',
         tags: ['JavaScript', 'p5.js'],
         image: 'assets/project_images/vibrating-string.png',
-        html: 'projects/VibratingString/index.html',
+        link: 'projects/VibratingString/index.html',
         link_type: '',
     },
     {
-        title: 'Solar System Simulation',
-        year: '2019',
-        description: '',
+        title: 'Perlin Noise Landscape',
+        year: '2023',
+        description: 'Fun little p5.js sketch to visualize perlin noise. The noise function is two dimensional giving the effect of a landscape. Tweak the parameters and see how it changes!',
         tags: ['JavaScript', 'p5.js'],
-        image: 'assets/project_images/solar-system-simulation.png',
-        html: 'projects/SolarSystemSimulation/index.html',
+        image: 'assets/project_images/perlin-noise.png',
+        link: 'projects/perlin/index.html',
         link_type: '',
     },
     {
         title: 'Bleb Survival!',
         year: '2019',
-        description: '',
+        description: 'Simulating survival of creatures with different behaviours trying to find food.',
         tags: ['JavaScript', 'p5.js'],
         image: 'assets/project_images/bleb-survival.png',
-        html: 'projects/BlebSurvival/index.html',
+        link: 'projects/BlebSurvival/index.html',
         link_type: '',
+    },
+    {
+        title: 'CandyPop Gallery',
+        year: '2024.11',
+        description: '[Under Construction] A media exploration app designed to address the UI/UX shortcomings (in my opinion) when exploring media using sites like Twitter, Instagram and Reddit. Frontend written in ReactJS and backend using Python Flask.',
+        tags: ['JavaScript', 'ReactJS', 'Python'],
+        image: 'assets/project_images/candypop-gall-temp.png',
+        link: 'https://github.com/MattThePerson/CandyPopGallery',
+        link_type: 'github🡭',
     },
 ];
 
@@ -176,7 +176,7 @@ function create_project_card(project) {
         }, 'filter by tag: ');
         tagsHolder.appendChild(tagEl);
     }
-    item.querySelectorAll('.page-link').forEach( a => a.href = project.html );
+    item.querySelectorAll('.page-link').forEach( a => a.href = project.link );
     item.querySelector('.link-type').innerText = project.link_type;
     return item;
 }
@@ -187,7 +187,7 @@ function create_tag_element(tag_name, onclick_func, title_prefix='tag: ') {
     const tagEl = document.createElement('button');
     tagEl.className = 'tag';
     tagEl.innerText = tag_name;
-    tagEl.style.background = tags[tag_name].color;
+    // tagEl.style.background = tags[tag_name].color;
     tagEl.onclick = (e) => {
         e.preventDefault();
         onclick_func();
@@ -298,14 +298,13 @@ document.querySelector('.sort-panel .alphabetic').addEventListener('click', even
 /* ADD PROJECTS TO PAGE */
 
 // assign each tag a unique color
-const tags = {};
+const tag_color_map = {};
 projects.forEach(p => {
     for (let tag of p.tags) {
-        if (!(tag in tags)) {
-            // const randomIndex = Math.floor(Math.random() * tag_colors.length);
+        if (!(tag in tag_color_map)) {
             const randomColor = tag_colors.splice(0, 1)[0];
-            tags[tag] = { color: randomColor }
-            console.log(tag, tags[tag].color);
+            tag_color_map[tag] = { color: randomColor }
+            console.log(tag, tag_color_map[tag].color);
         }
     }
 })

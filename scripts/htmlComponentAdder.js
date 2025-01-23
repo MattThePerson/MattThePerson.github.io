@@ -35,9 +35,6 @@ function HeaderTemplate() {
         <a href="index.html">home</a>
     </div>
     <div class="nav-item">
-        <a href="about.html">about</a>
-    </div>
-    <div class="nav-item">
         <a href="contact.html">contact</a>
     </div>
     <div class="nav-icons">

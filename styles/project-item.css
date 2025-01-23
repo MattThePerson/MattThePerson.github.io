@@ -45,12 +45,17 @@
     display: flex;
     justify-content: space-between;
     font-weight: 600;
-    color: var(--highlight);
+    /* color: var(--highlight); */
     filter: brightness(0.8);
+}
+
+.project-year {
+    color: rgb(34, 34, 34);
 }
 
 .top-row .link-type {
     font-size: 12px;
+    color: rgb(34, 34, 34);
 }
 
 .project-title {
