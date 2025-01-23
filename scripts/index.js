@@ -118,6 +118,15 @@ const projects = [
         link: 'https://github.com/MattThePerson/CandyPopGallery',
         link_type: 'github🡭',
     },
+    // {
+    //     title: 'Quadratic Intercept Prediction',
+    //     year: '2019.03',
+    //     description: 'Try to throw a ball without it being intercepted by a missile going straight!',
+    //     tags: ['JavaScript', 'p5.js'],
+    //     image: 'assets/project_images/quadratic-intercept-prediction.png',
+    //     link: 'projects/QuadraticInterceptPrediction/index.html',
+    //     link_type: '',
+    // },
 ];
 
 // let sorted_projects = [];
@@ -286,7 +295,7 @@ document.querySelector('.sort-panel .latest').addEventListener('click', event =>
     updateProjectCards();
 });
 
-document.querySelector('.sort-panel .alphabetic').addEventListener('click', event => {
+document.querySelector('.sort-panel .alphabetic')?.addEventListener('click', event => {
     document.querySelectorAll('.sort-panel button').forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');
     sortByParam = 'title';
@@ -304,7 +313,7 @@ projects.forEach(p => {
         if (!(tag in tag_color_map)) {
             const randomColor = tag_colors.splice(0, 1)[0];
             tag_color_map[tag] = { color: randomColor }
-            console.log(tag, tag_color_map[tag].color);
+            // console.log(tag, tag_color_map[tag].color);
         }
     }
 })
