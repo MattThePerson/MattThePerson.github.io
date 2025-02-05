@@ -24,8 +24,8 @@ componentMethods = {
 /* COMPONENT METHODS */
 
 function HeaderTemplate() {
-    return `
-<header>
+    return /*html*/ `
+    <header>
 <div class="site-logo">
     <div title="click me!" class="led-matrix-display random-color change-color-on-click pointer" data-width="3" data-height="3" data-updatems="250" data-size="13px"></div>
     <div id="nav-logo" title="don't click me!">matti</div>
@@ -36,6 +36,9 @@ function HeaderTemplate() {
     </div>
     <div class="nav-item">
         <a href="contact.html">contact</a>
+    </div>
+    <div class="nav-item">
+        <a href="about.html">about</a>
     </div>
     <div class="nav-icons">
         <a class="icon-external-link" href="https://github.com/MattThePerson" target="_blank">
@@ -49,6 +52,7 @@ function HeaderTemplate() {
             </svg>
         </a>
     </div>
+    
     <div class="color-input-container">
         <div>#</div>
         <input id="root-highlight-color-input" type="text" autocomplete="off" title="change me!">
@@ -59,7 +63,7 @@ function HeaderTemplate() {
 }
 
 function FooterTemplate() {
-    return `
+    return /*html*/ `
 <footer>
     Coded and stuff by Matt (Matti) Stirling
 </footer>

@@ -3,12 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matti's Sanctum</title>
+    <title>Matti's Sanctum - Contact</title>
     <link rel="icon" href="assets/icons/led-icon.png">
     <link rel="stylesheet" href="styles/global.css">
     <script defer src="scripts/htmlComponentAdder.js"></script>
     <script defer src="scripts/global.js"></script>
     <script defer src="projects/LEDMatrixDisplay/LEDMatrixDisplay.js"></script>
+    <style>
+        section.page-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .page-content {
+            width: 50%;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
     
@@ -21,9 +35,16 @@
     </main>
 
 
-    <!-- PROJECTS SECTION -->
     <section class="page-content">
-        
+        <h2>Contact</h2>
+        <span>
+            <div class="contact-icon"></div>
+            <div class="contact-text">stirlingmattmarkus@gmail.com</div>
+        </span>
+        <span>
+            <div class="contact-icon"></div>
+            <div class="contact-text">+356 456089633</div>
+        </span>
     </section>
     <div class="html-component-injector" html-component="footer"></div>
 </body>
