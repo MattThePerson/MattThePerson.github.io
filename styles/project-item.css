@@ -124,7 +124,7 @@
 @media (max-width:750px) {
 
     .project-item {
-        background: yellow;
+        /* background: yellow; */
         grid-template-rows: 50% 50%;
         width: 90vw;
     }
