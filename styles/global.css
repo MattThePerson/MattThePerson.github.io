@@ -91,7 +91,7 @@ header {
     padding: 0;
 }
 .icon-external-link path {
-    fill: whitesmoke;
+    fill: rgba(255, 255, 255, 0.845);
 }
 .icon-external-link:hover path {
     fill: var(--highlight);
@@ -137,9 +137,9 @@ header {
 .top-nav .nav-item a {
     position: relative;
     text-decoration: none;
-    color: var(--white-yellow);
+    color: rgba(255, 255, 255, 0.845);
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     transition: color 200ms;
 }
 .top-nav a:after {
